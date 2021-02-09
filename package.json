@@ -1,0 +1,27 @@
+{
+  "name": "is-online",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/geek4teck/Is-Online.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/geek4teck/Is-Online/issues"
+  },
+  "homepage": "https://github.com/geek4teck/Is-Online#readme",
+  "dependencies": {
+    "ping": "^0.4.0"
+  },
+  "devDependencies": {
+    "electron": "^11.2.3",
+    "nodemon": "^2.0.7"
+  }
+}
