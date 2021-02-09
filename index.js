@@ -1,46 +1,35 @@
-const { app, BrowserWindow, Menu, Tray } = require("electron");
+const { app, Tray, Menu } = require("electron");
 const path = require("path");
-var ping = require("ping");
-var host = "google.com";
-
+let ping = require("ping");
+let host = "google.com";
 let tray = null;
-app.whenReady().then(() => {});
-function createWindow() {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    // show: false,
-    webPreferences: {
-      nodeIntegration: true,
+const contextMenu = Menu.buildFromTemplate([
+  {
+    label: "Exit",
+    type: "radio",
+    click() {
+      console.log("Exit Clicked from Menu");
+      app.quit();
     },
-  });
+  },
+]);
 
-  // and load the index.html of the app.
-  mainWindow.loadFile("index.html");
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
-}
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  //createWindow();
+  let icon = path.join(__dirname, "assets/Loading.png");
+  tray = new Tray(icon);
+  tray.setToolTip("Checking....");
+
+  tray.setContextMenu(contextMenu);
   setTimeout(() => {
     pingNow();
   }, 1000);
-  tray = new Tray("./Loading.png");
-  tray.setToolTip("This is my application.");
-  //   tray.setContextMenu(contextMenu);
-
-  app.on("activate", function () {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow();
-  });
 });
 
-// Quit when all windows are closed.
+app.on("before-quit", function () {
+  console.log("Quitting App.... ");
+  tray.destroy();
+});
+
 app.on("window-all-closed", function () {
   if (process.platform !== "darwin") app.quit();
 });
@@ -61,13 +50,12 @@ const pingNow = () => {
 
 const setOnline = () => {
   tray.setToolTip("Online!");
-  tray.setImage("./Online.png");
+  let icon = path.join(__dirname, "assets/Online.png");
+  tray.setImage(icon);
 };
 
 const setOffline = () => {
   tray.setToolTip("Offline!");
-  tray.setImage("./Offline.png");
+  let icon = path.join(__dirname, "assets/Offline.png");
+  tray.setImage(icon);
 };
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and require them here.

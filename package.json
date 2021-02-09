@@ -1,18 +1,32 @@
 {
   "name": "is-online",
-  "version": "1.0.0",
-  "description": "",
+  "productName": "Is Online",
+  "version": "0.1.0",
+  "description": "A Simple Utility to show if internet is connected or not.",
   "main": "index.js",
   "scripts": {
     "start": "electron .",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "build": "electron-builder"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/geek4teck/Is-Online.git"
   },
-  "author": "",
+  "author": "Vishal Goyal",
   "license": "ISC",
+  "build": {
+    "asar": false,
+    "files": [
+      "assets/**/*",
+      "build/**/*",
+      "package.json",
+      "index.js"
+    ],
+    "win": {
+      "icon": "./build/Online.png"
+    }
+  },
   "bugs": {
     "url": "https://github.com/geek4teck/Is-Online/issues"
   },
@@ -22,6 +36,7 @@
   },
   "devDependencies": {
     "electron": "^11.2.3",
+    "electron-builder": "^22.9.1",
     "nodemon": "^2.0.7"
   }
 }
